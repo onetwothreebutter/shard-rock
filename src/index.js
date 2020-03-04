@@ -1,5 +1,5 @@
-var RED = require('node-red');
-var neopixel = require('node-red-node-pi-neopixel');
+var RED = require('node-red/lib/red');
+var neopixel = require('node-red-node-pi-neopixel/neopixel');
 var http = require('http');
 const server = http.createServer((req, res) => {
   res.statusCode = 200
@@ -7,7 +7,8 @@ const server = http.createServer((req, res) => {
   res.end('<h1>Hello, World!</h1>')
 })
 
-var configuredRED = RED(server, {});
+RED.init(server, {});
+var configuredNeopixel = neopixel(RED);
 
 
 //
