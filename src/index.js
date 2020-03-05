@@ -1,9 +1,11 @@
 var spawn = require('child_process').spawn;
 
+const pathToNeopix = require.resolve("node-red-node-pi-neopixel/neopix");
+
 // the magic to make python print stuff immediately
 process.env.PYTHONUNBUFFERED = 1;
 
-const piCommandPath = '../node_modules/node-red-node-pi-neopixel/neopix';
+const piCommandPath = pathToNeopix;
 const piLEDParams = {
   pixels: 10,
   wipe: 40,
