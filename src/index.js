@@ -20,3 +20,11 @@ const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, pi
 process.env.PYTHONUNBUFFERED = 1;
 
 piProcess.stdin.write("brightness,100\n");
+
+setTimeout( () => {
+  piProcess.stdin.write("brightness,0\n");
+}, 4000);
+
+setTimeout( () => {
+  piProcess.stdin.write("brightness,100\n");
+}, 8000);
