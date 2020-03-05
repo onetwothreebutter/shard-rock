@@ -8,8 +8,8 @@ const server = http.createServer((req, res) => {
 })
 
 RED.init(server, {});
-var configuredNeopixel = neopixel(RED);
-
+var configuredNeopixel = new neopixel(RED);
+configuredNeopixel.PiNeopixelNode();
 
 //
 //
