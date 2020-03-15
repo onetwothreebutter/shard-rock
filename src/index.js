@@ -1,5 +1,5 @@
 const spawn = require('child_process').spawn;
-const getWeatherData = require('./get-weather-data');
+const getWeatherData = require('./weather-data');
 
 const pathToNeopix = require.resolve("node-red-node-pi-neopixel/neopix");
 
@@ -8,7 +8,7 @@ async function getData() {
   console.log(JSON.stringify(weatherData.data));
 };
 
-setInterval(getData, 1000);
+//setInterval(getData, 1000);
 
 // the magic to make python print stuff immediately
 process.env.PYTHONUNBUFFERED = 1;
@@ -27,7 +27,8 @@ const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, pi
 // the magic to make python print stuff immediately
 process.env.PYTHONUNBUFFERED = 1;
 
-piProcess.stdin.write("255,127,8\n");
+//piProcess.stdin.write("255,127,8\n"); // orange
+piProcess.stdin.write("13,6,244\n"); // purple
 
 
 // cold temperature (below 32F is a big deal)
