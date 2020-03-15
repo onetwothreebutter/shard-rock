@@ -1,5 +1,6 @@
 const spawn = require('child_process').spawn;
 const getWeatherData = require('./weather-data');
+const colorConvert = require('color-convert');
 
 const pathToNeopix = require.resolve("node-red-node-pi-neopixel/neopix");
 
@@ -28,10 +29,44 @@ const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, pi
 process.env.PYTHONUNBUFFERED = 1;
 
 //piProcess.stdin.write("255,127,8\n"); // orange
-piProcess.stdin.write("13,6,244\n"); // purple
+piProcess.stdin.write("155,88,181\n"); // purple
 
+
+// 110F
+// hue = 324
+
+// 100F
+// hue = 6
+
+// 90F
+// hue = 30
+
+// 80F
+// hue = 47
+
+// 70F
+// hue = 55
+
+// 60F
+// hue = 94
+
+// 50F
+// hue = 116
+
+// 40F
+// hue = 161
 
 // cold temperature (below 32F is a big deal)
+// hue = 216
+piProcess.stdin.write("155,88,181\n"); // purple
+
+// cold temperature (below 20F is another big deal)
+// hue = 260
+
+// cold temp (below 0F is another big deal)
+// hue = 282
+
+piProcess.stdin.write("155,88,181\n"); // purple
 
 // warm tempature (above 90F is a big deal)
 
