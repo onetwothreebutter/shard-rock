@@ -4,6 +4,7 @@
   "description": "Make a responsive rock with glowing glass chunks",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "http-server": "^0.12.1",
     "johnny-five": "^1.4.0",
     "node-pixel": "^0.10.2",

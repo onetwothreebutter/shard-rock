@@ -1,4 +1,6 @@
-const getWeatherData = (lat, lon) => {
+const axios = require('axios');
+
+const getWeatherData = async (lat, lon) => {
   try {
     let url = `https://weather-orb.netlify.com/.netlify/functions/get-weather-data?lat=${lat}&lon=${lon}`;
     return await axios.post(url);
@@ -7,4 +9,4 @@ const getWeatherData = (lat, lon) => {
   }
 }
 
-export default { getWeatherData };
+module.exports = getWeatherData;

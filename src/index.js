@@ -1,6 +1,14 @@
-var spawn = require('child_process').spawn;
+const spawn = require('child_process').spawn;
+const getWeatherData = require('./get-weather-data');
 
 const pathToNeopix = require.resolve("node-red-node-pi-neopixel/neopix");
+
+async function getData() {
+  const weatherData = await getWeatherData('41.673780', '-91.757270');
+  console.log(JSON.stringify(weatherData.data));
+};
+
+setInterval(getData, 1000);
 
 // the magic to make python print stuff immediately
 process.env.PYTHONUNBUFFERED = 1;
@@ -19,12 +27,29 @@ const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, pi
 // the magic to make python print stuff immediately
 process.env.PYTHONUNBUFFERED = 1;
 
-piProcess.stdin.write("brightness,100\n");
+piProcess.stdin.write("255,127,8\n");
 
-setTimeout( () => {
-  piProcess.stdin.write("brightness,0\n");
-}, 4000);
 
-setTimeout( () => {
-  piProcess.stdin.write("brightness,100\n");
-}, 8000);
+// cold temperature (below 32F is a big deal)
+
+// warm tempature (above 90F is a big deal)
+
+// windy (above 15 mph is a big deal)
+
+// rain is a big deal always
+
+// snow is a big deal always
+
+// hail is a big deal always
+
+// severe weather is a big deal
+
+// sunrise/sunset
+
+// full moon
+
+// clouds vs sun
+
+// peaceful pleasant days are a big deal
+
+
