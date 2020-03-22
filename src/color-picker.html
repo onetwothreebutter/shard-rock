@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #colorPicker {
+      margin-bottom: 2rem;
+    }
+  </style>
+  <script src="https://unpkg.com/@reactivex/rxjs@6.0.0/dist/global/rxjs.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
+</head>
+<body>
+  <div id="colorPicker"></div>
+  <div id="selectedColor"></div>
+  <script>
+    const { Observable } = rxjs;
+
+    const createIroObservable = (colorPickerSelector) => {
+
+      var colorPicker = new iro.ColorPicker(colorPickerSelector, {
+        // color picker options
+        // Option guide: https://iro.js.org/guide.html#color-picker-options
+        width: 280,
+        color: "rgb(255, 0, 0)",
+        borderWidth: 1,
+        borderColor: "#fff",
+      });
+
+      return Observable.create(observer => {
+        const colorHandler = color => observer.next(color);
+        colorPicker.on(["color:init", "color:change"], colorHandler);
+
+        return () => colorPicker.off(["color:init", "color:change"], colorHandler);
+      });
+    };
+
+    const sendToLEDs = (color) => {
+      fetch(`http://localhost:3000/color/${color}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+    };
+
+    const colorPicker$ = createIroObservable('#colorPicker');
+    const selectedColor = document.getElementById("selectedColor");
+
+    colorPicker$.subscribe( iroColorObj => {
+      console.log(iroColorObj);
+      selectedColor.innerHTML = [
+        "hex: " + iroColorObj.hexString,
+        "rgb: " + iroColorObj.rgbString,
+        "hsl: " + iroColorObj.hslString,
+      ].join("<br>");
+
+      sendToLEDs(iroColorObj.hslString);
+    });
+  </script>
+</body>
+</html>
