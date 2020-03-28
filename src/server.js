@@ -5,10 +5,10 @@ const startLEDs = require('./neopix');
 
 
 app.get('/', (req, res) => {
-  
+
   if (req.query.color) {
     const pythonProcess = startLEDs();
-    pythonProcess.stdin.write('${req.query.color}\n');
+    pythonProcess.stdin.write(`${req.query.color}\n`);
     res.send(`Color set to ${req.query.color}`);
   } else {
     res.send('Hello word');
