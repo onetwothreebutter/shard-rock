@@ -28,7 +28,7 @@
 
     const createIroObservable = (colorPickerSelector) => {
 
-      var colorPicker = new iro.ColorPicker(colorPickerSelector, {
+      const colorPicker = new iro.ColorPicker(colorPickerSelector, {
         // color picker options
         // Option guide: https://iro.js.org/guide.html#color-picker-options
         width: 280,
@@ -59,10 +59,10 @@
 
     const colorPicker = createIroObservable('#colorPicker');
     colorPicker.pipe(throttleTime(250));
-    
+
     const selectedColor = document.getElementById("selectedColor");
 
-    colorPicker$.subscribe( iroColorObj => {
+    colorPicker.subscribe( iroColorObj => {
       console.log(iroColorObj);
       selectedColor.innerHTML = [
         "hex: " + iroColorObj.hexString,
