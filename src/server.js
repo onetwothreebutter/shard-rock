@@ -7,7 +7,7 @@ const pythonProcess = startLEDs();
 
 app.get('/', (req, res) => {
 
-  if (req.query.color) {
+  if (req.query.color && !req.query.setPixel) {
     pythonProcess.stdin.write(`${req.query.color}\n`);
     console.log(`Color set to ${req.query.color}`);
   } else if(req.query.brightness) {
