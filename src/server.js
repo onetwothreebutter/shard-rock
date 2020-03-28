@@ -13,7 +13,9 @@ app.get('/', (req, res) => {
   } else if(req.query.brightness) {
     pythonProcess.stdin.write(`brightness,${req.query.brightness}\n`);
     console.log(`Brightness set to ${req.query.brightness}`);
-  }else {
+  } else if (req.query.setPixel && req.query.color) {
+    pythonProcess.stdin.write(`${req.query.setPixel},${req.query.color}\n`);
+  } else {
     res.send('Hello word');
   }
 
