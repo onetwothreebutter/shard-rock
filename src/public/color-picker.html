@@ -15,6 +15,16 @@
     #colorPicker {
       margin-bottom: 2rem;
     }
+    #selectedColor {
+      margin-bottom: 2rem;
+    }
+    [for="brightness"] {
+      display: flex;
+      font-weight: bold;
+    }
+    #brightness {
+      margin-left: 1rem;
+    }
   </style>
   <script src="https://unpkg.com/@reactivex/rxjs@6.0.0/dist/global/rxjs.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
@@ -22,6 +32,11 @@
 <body>
   <div id="colorPicker"></div>
   <div id="selectedColor"></div>
+  <label for="brightness">
+    Brightness
+    <input id="brightness" type="range" min="0" max="100"/>
+  </label>
+
   <script>
     const { Observable } = rxjs;
     const { throttleTime } = rxjs.operators;
@@ -46,7 +61,6 @@
     };
 
     const sendToLEDs = (color) => {
-      console.log(color);
       const rgbNumbers = color.replace('rgb(', '').replace(')','');
       fetch(`http://192.168.86.30:3000/?color=${rgbNumbers}`)
         .then((response) => {
