@@ -10,8 +10,8 @@ app.get('/', (req, res) => {
   if (req.query.color) {
     pythonProcess.stdin.write(`${req.query.color}\n`);
     console.log(`Color set to ${req.query.color}`);
-  } else if(req.query.brighness) {
-    pythonProcess.stdin.write(`brightness,${req.query.brighness}\n`);
+  } else if(req.query.brightness) {
+    pythonProcess.stdin.write(`brightness,${req.query.brightness}\n`);
     console.log(`Brightness set to ${req.query.brightness}`);
   }else {
     res.send('Hello word');
