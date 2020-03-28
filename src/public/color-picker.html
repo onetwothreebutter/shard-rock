@@ -45,7 +45,9 @@
     };
 
     const sendToLEDs = (color) => {
-      fetch(`http://localhost:3000/color/${color}`)
+      console.log(color);
+      const rgbNumbers = color.replace('rgb(', '').replace(')','');
+      fetch(`http://192.168.86.30:3000/?color=${rgbNumbers}`)
         .then((response) => {
           return response.json();
         })
@@ -65,7 +67,7 @@
         "hsl: " + iroColorObj.hslString,
       ].join("<br>");
 
-      sendToLEDs(iroColorObj.hslString);
+      sendToLEDs(iroColorObj.rgbString);
     });
   </script>
 </body>
