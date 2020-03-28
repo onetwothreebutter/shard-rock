@@ -6,11 +6,13 @@ const spawn = require('child_process').spawn;
 const pythonProcess = spawn('node', [`${__dirname}/index.js`]);
 
 app.get('/', (req, res) => {
-  res.send('Hello word');
+
 
   if (req.query.color) {
     pythonProcess.stdin.write('${req.query.color}\n');
     res.send(`Color set to ${req.query.color}`);
+  } else {
+    res.send('Hello word');
   }
 
 });
