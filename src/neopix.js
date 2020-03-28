@@ -8,7 +8,7 @@ const startLEDs = () => {
   const piCommandPath = pathToNeopix;
   const piLEDParams = {
     pixels: 10,
-    wipe: 40,
+    wipe: 0,
     mode: 'pcent',
     brightness: 100,
     gamma: true,
