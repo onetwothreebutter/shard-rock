@@ -38,9 +38,9 @@
 
       return Observable.create(observer => {
         const colorHandler = color => observer.next(color);
-        colorPicker.on(["color:init", "color:change"], colorHandler);
+        colorPicker.on(["color:init", "input:end"], colorHandler);
 
-        return () => colorPicker.off(["color:init", "color:change"], colorHandler);
+        return () => colorPicker.off(["color:init", "input:end"], colorHandler);
       });
     };
 
