@@ -24,6 +24,7 @@
   <div id="selectedColor"></div>
   <script>
     const { Observable } = rxjs;
+    const { throttleTime } = rxjs.operators;
 
     const createIroObservable = (colorPickerSelector) => {
 
@@ -38,9 +39,9 @@
 
       return Observable.create(observer => {
         const colorHandler = color => observer.next(color);
-        colorPicker.on(["color:init", "input:end"], colorHandler);
+        colorPicker.on(["color:init", "color:change"], colorHandler);
 
-        return () => colorPicker.off(["color:init", "input:end"], colorHandler);
+        return () => colorPicker.off(["color:init", "color:change"], colorHandler);
       });
     };
 
@@ -56,7 +57,9 @@
         });
     };
 
-    const colorPicker$ = createIroObservable('#colorPicker');
+    const colorPicker = createIroObservable('#colorPicker');
+    colorPicker.pipe(throttleTime(250));
+    
     const selectedColor = document.getElementById("selectedColor");
 
     colorPicker$.subscribe( iroColorObj => {
