@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/twinkle', (req, res) => {
-  twinkle(0, 10, [255, 0, 0], [0, 255, 0]).forEach((command) => {
+  twinkle(0, 10, [255, 0, 0]).forEach((command) => {
     pythonProcess.stdin.write(command);
   });
 
