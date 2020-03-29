@@ -29,6 +29,13 @@ const setBrightness = (brightness) => `brightness,${brightness}\n`;
 
 const setPixel = (position, red, green, blue) => `${position},${red},${green},${blue}\n`;
 
+const twinkle = (startPixel, endPixel, color1, color2) => {
+  for (let i = startPixel; i < endPixel; i += 1) {
+    const colorToUse = (i % 2 === 0) ? color1 : color2;
+    setPixel(i, ...colorToUse);
+  }
+};
+
 module.exports = {
-  startLEDs, setColor, setBrightness, setPixel,
+  startLEDs, setColor, setBrightness, setPixel, twinkle
 };
