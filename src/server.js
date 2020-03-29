@@ -28,20 +28,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/twinkle', (req, res) => {
-
   let count = 0;
   setInterval(() => {
     if (count % 2 === 0) {
-      twinkle(0, 10, [255, 0, 0]).forEach((command) => {
+      twinkle(0, 10, [255, 0, 0]).twinkleState1.forEach((command) => {
         pythonProcess.stdin.write(command);
       });
     } else {
-      twinkle(1, 11, [255, 0, 0]).forEach((command) => {
+      twinkle(1, 11, [255, 0, 0]).twinkleState2.forEach((command) => {
         pythonProcess.stdin.write(command);
       });
     }
     count += 1;
-
+    console.log('twinkle');
   }, 500);
   res.send('Twinkling...');
 });

@@ -33,11 +33,16 @@ const setPixel = (position, red, green, blue) => `${position},${red},${green},${
 const twinkle = (startPixel, endPixel, color) => {
   const hsl = convert.rgb.hsl(...color);
   const twinkleColor = convert.hsl.rgb([hsl[0], hsl[1], hsl[2] - 10]);
-  const ledCommands = [];
+  const ledCommands = { twinkleState1: [], twinkleState2: [] };
   for (let i = startPixel; i < endPixel; i += 1) {
     const colorToUse = (i % 2 === 0) ? color : twinkleColor;
-    ledCommands.push(setPixel(i, ...colorToUse));
+    ledCommands.twinkleState1.push(setPixel(i, ...colorToUse));
   }
+  for (let i = startPixel; i < endPixel; i += 1) {
+    const colorToUse = (i % 2 === 0) ? twinkleColor : color;
+    ledCommands.twinkleState2.push(setPixel(i, ...colorToUse));
+  }
+
   return ledCommands;
 };
 
