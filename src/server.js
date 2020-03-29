@@ -28,10 +28,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/twinkle', (req, res) => {
-  twinkle(0, 10, [255, 0, 0]).forEach((command) => {
-    pythonProcess.stdin.write(command);
-  });
-
+  setInterval(() => {
+    twinkle(0, 10, [255, 0, 0]).forEach((command) => {
+      pythonProcess.stdin.write(command);
+    });
+  }, 500);
   res.send('Twinkling...');
 });
 
