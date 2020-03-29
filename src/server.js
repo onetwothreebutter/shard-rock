@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   if (req.query.setColor) {
     const { red, green, blue } = req.query;
     pythonProcess.stdin.write(setColor(red, green, blue));
-    console.log(`Color set to ${req.query.color}`);
+    console.log(`Color set to rgb(${setColor(red, green, blue)})`);
   } else if (req.query.setPixel) {
     const {
       position, red, green, blue,
@@ -19,12 +19,12 @@ app.get('/', (req, res) => {
   } else if (req.query.brightness) {
     const { brightness } = req.query.brightness;
     pythonProcess.stdin.write(setBrightness(brightness));
-    console.log(`Brightness set to ${req.query.brightness}`);
+    console.log(`Brightness set to ${brightness}%`);
   } else {
     res.send('Hello word');
   }
 });
 
-app.use(express.static('public'));
+app.use(express.static('../public'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
