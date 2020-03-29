@@ -28,8 +28,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/twinkle', (req, res) => {
-  pythonProcess.stdin.write(twinkle(0, 10, [255, 0, 0], [0, 255, 0]));
-  res.send("Twinkling...");
+  twinkle(0, 10, [255, 0, 0], [0, 255, 0]).forEach((command) => {
+    pythonProcess.stdin.write(command);
+  });
+
+  res.send('Twinkling...');
 });
 
 app.use(express.static(`${__dirname}/../public`));
