@@ -25,6 +25,6 @@ app.get('/', (req, res) => {
   }
 });
 
-app.use(express.static('../public'));
+app.use(express.static(`${__dirname}/../public`));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
