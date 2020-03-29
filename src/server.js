@@ -2,7 +2,9 @@ const express = require('express');
 
 const app = express();
 const port = 3000;
-const { startLEDs, setColor, setPixel, setBrightness } = require('./neopix');
+const {
+  startLEDs, setColor, setPixel, setBrightness,
+} = require('./neopix');
 
 const pythonProcess = startLEDs();
 

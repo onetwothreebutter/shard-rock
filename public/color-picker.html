@@ -66,7 +66,7 @@
         });
     };
 
-    const colorPicker = createIroObservable('#colorPicker').pipe(throttleTime(20));
+    const colorPicker = createIroObservable('#colorPicker').pipe(throttleTime(100));
 
     const selectedColor = document.getElementById("selectedColor");
 

@@ -14,7 +14,12 @@ const startLEDs = () => {
     gamma: true,
   };
   console.log(piCommandPath);
-  const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, piLEDParams.mode, piLEDParams.brightness, piLEDParams.gamma]);
+  const piProcess = spawn(piCommandPath,
+    [piLEDParams.pixels,
+      piLEDParams.wipe,
+      piLEDParams.mode,
+      piLEDParams.brightness,
+      piLEDParams.gamma]);
   return piProcess;
 };
 
