@@ -1,6 +1,6 @@
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 
-const pathToNeopix = require.resolve("node-red-node-pi-neopixel/neopix");
+const pathToNeopix = require.resolve('node-red-node-pi-neopixel/neopix');
 
 const startLEDs = () => {
   process.env.PYTHONUNBUFFERED = 1;
@@ -16,6 +16,14 @@ const startLEDs = () => {
   console.log(piCommandPath);
   const piProcess = spawn(piCommandPath, [piLEDParams.pixels, piLEDParams.wipe, piLEDParams.mode, piLEDParams.brightness, piLEDParams.gamma]);
   return piProcess;
-}
+};
 
-module.exports = startLEDs;
+const setColor = (red, green, blue) => `${red},${green},${blue}\n`;
+
+const setBrightness = (brightness) => `brightness,${brightness}\n`;
+
+const setPixel = (position, red, green, blue) => `${position},${red},${green},${blue}\n`;
+
+module.exports = {
+  startLEDs, setColor, setBrightness, setPixel,
+};

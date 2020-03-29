@@ -56,9 +56,9 @@
       });
     };
 
-    const sendToLEDs = (color) => {
+    const sendToLEDs = (red, green, blue) => {
       const rgbNumbers = color.replace('rgb(', '').replace(')','');
-      fetch(`http://192.168.86.30:3000/?color=${rgbNumbers}`)
+      fetch(`http://192.168.86.30:3000/?setColor=true&red=${red}&green=${green}&blue=${blue}`)
         .then((response) => {
           return response.json();
         })
@@ -79,7 +79,8 @@
         "hsl: " + iroColorObj.hslString,
       ].join("<br>");
 
-      sendToLEDs(iroColorObj.rgbString);
+      const {red, green, blue} = iroColorObj;
+      sendToLEDs(red, green, blue);
     });
   </script>
 </body>
