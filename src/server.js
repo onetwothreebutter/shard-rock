@@ -54,7 +54,7 @@ app.get('/pulse', (req, res) => {
 
   console.log('pulsing...');
 
-  res.sending('Pulsing...');
+  res.send('Pulsing...');
 });
 
 app.use(express.static(`${__dirname}/../public`));
