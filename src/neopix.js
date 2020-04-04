@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const pathToNeopix = require.resolve('node-red-node-pi-neopixel/neopix');
 const convert = require('color-convert');
 
-const eases = requires('eases');
+const eases = require('eases');
 
 const startLEDs = () => {
   process.env.PYTHONUNBUFFERED = 1;
