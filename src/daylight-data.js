@@ -1,7 +1,7 @@
 const suncalc = require('suncalc');
 const differenceInSeconds = require('date-fns/difference_in_seconds');
 
-// determine the kind of daylight
+// determine daylight types for this specific date/location
 const suninfo = suncalc.getTimes(
   new Date(),
   lat,
@@ -12,127 +12,107 @@ const suninfo = suncalc.getTimes(
 const currentTime = new Date(darksky.time * 1000);
 
 console.log(suninfo);
+const daylightPeriods = {
+  PRE_DAWN: 'pre-dawn',
+  DAWN: 'dawn',
+  SUNRISE: 'sunrise',
+  MORNING_GOLDEN_HOUR: 'morning-golden-hour',
+  MORNING: 'morning',
+  AFTERNOON: 'afternoon',
+  AFTERNOON_GOLDEN_HOUR: 'afternoon_golden_hour',
+  SUNSET: 'afternoon_golden_hour',
+  TWILIGHT: 'twilight',
+  DUSK: 'dusk',
+  NIGHT: 'night',
+};
 
-const getDaylightQuality = (lat, lon) => {
+const getDaylightQuality = (currentTime, lat, lon) => {
 // pre-dawn
   if (
     currentTime >= new Date(suninfo.nightEnd)
     && currentTime < new Date(suninfo.dawn)
   ) {
-    return 'pre-dawn';
+    return daylightPeriods.PRE_DAWN;
   }
   // dawn
   if (
     currentTime >= new Date(suninfo.dawn)
     && currentTime < new Date(suninfo.sunrise)
   ) {
-    const dawnDuration = differenceInSeconds(
-      new Date(suninfo.sunrise),
-      new Date(suninfo.dawn),
-    );
-    const dawnProgress = differenceInSeconds(
-      currentTime,
-      new Date(suninfo.sunrise),
-    );
-
-    const progress = eases.cubicIn(dawnProgress / dawnDuration);
-    settings.daylightValue = lerp(2.3, 1.8, progress);
-    settings.saturation = lerp(0.2, 0.6, progress);
+    return daylightPeriods.DAWN;
   }
   // sunrise
-  else if (
+  if (
     currentTime >= new Date(suninfo.sunrise)
     && currentTime < new Date(suninfo.sunriseEnd)
   ) {
-    const sunriseDuration = differenceInSeconds(
-      new Date(suninfo.sunriseEnd),
-      new Date(suninfo.sunrise),
-    );
-    const sunriseProgress = differenceInSeconds(
-      currentTime,
-      new Date(suninfo.sunrise),
-    );
-
-    const progress = eases.cubicOut(sunriseProgress / sunriseDuration);
-
-    settings.daylightValue = lerp(1.8, 1.2, progress);
-    settings.saturation = lerp(0.6, 0.7, progress);
+    return daylightPeriods.SUNRISE;
   }
-  // golden hour
-  else if (
+  // morning golden hour
+  if (
     currentTime >= new Date(suninfo.sunriseEnd)
     && currentTime < new Date(suninfo.goldenHourEnd)
   ) {
-    settings.daylightValue = 1.2;
-    settings.saturation = 0.7;
+    return daylightPeriods.MORNING_GOLDEN_HOUR;
   }
   // morning
-  else if (
+  if (
     currentTime >= new Date(suninfo.goldenHourEnd)
     && currentTime < new Date(suninfo.solarNoon)
   ) {
-    settings.daylightValue = 1.0;
-    settings.saturation = 1.0;
+    return daylightPeriods.MORNING;
   }
   // afternoon
-  else if (
+  if (
     currentTime >= new Date(suninfo.solarNoon)
     && currentTime < new Date(suninfo.goldenHour)
   ) {
-    settings.daylightValue = 1.0;
-    settings.saturation = 1.0;
+    return daylightPeriods.AFTERNOON;
   }
-  // golden hour
-  else if (
+  // afternoon golden hour
+  if (
     currentTime >= new Date(suninfo.goldenHour)
     && currentTime < new Date(suninfo.sunsetStart)
   ) {
-    settings.daylightValue = 1.0;
-    settings.saturation = 1.0;
+    return daylightPeriods.AFTERNOON_GOLDEN_HOUR;
   }
   // sunset
-  else if (
+  if (
     currentTime >= new Date(suninfo.sunsetStart)
     && currentTime < new Date(suninfo.sunset)
   ) {
-    const secondsBetween = differenceInSeconds(
-      new Date(suninfo.sunset),
-      new Date(suninfo.sunsetStart),
-    );
-    const secondsOfProgress = differenceInSeconds(
-      currentTime,
-      new Date(suninfo.sunsetStart),
-    );
-    const progress = secondsOfProgress / secondsBetween;
-
-    settings.daylightValue = lerp(1.0, 1.4, progress);
-    settings.saturation = 1.0;
+    return daylightPeriods.SUNSET;
   }
   // twilight
-  else if (
+  if (
     currentTime >= new Date(suninfo.sunset)
     && currentTime < new Date(suninfo.dusk)
   ) {
-    settings.daylightValue = 1.4;
-    settings.saturation = 0.3;
+    return daylightPeriods.TWILIGHT;
   }
   // dusk
-  else if (
+  if (
     currentTime >= new Date(suninfo.dusk)
     && currentTime < new Date(suninfo.night)
   ) {
-    settings.daylightValue = 2.0;
-    settings.saturation = 0.3;
+    return daylightPeriods.DUSK;
   }
+
   // night
-  else {
-    settings.daylightValue = 2.5;
-    settings.saturation = 0.2;
-  }
+  return daylightPeriods.NIGHT;
 };
+
+const progressThroughPeriod = (period, currentTime) => {
+
+};
+
+const periodLength = (period) => {
+
+};
+
 
 function calculateProgress(minValue, maxValue, currentValue) {
   return (currentValue - minValue) / (maxValue - minValue);
 }
 
-modules.exports = getDaylightQuality;
+module.exports = getDaylightQuality;

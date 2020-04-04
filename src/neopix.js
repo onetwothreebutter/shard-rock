@@ -3,6 +3,8 @@ const { spawn } = require('child_process');
 const pathToNeopix = require.resolve('node-red-node-pi-neopixel/neopix');
 const convert = require('color-convert');
 
+const eases = requires('eases');
+
 const startLEDs = () => {
   process.env.PYTHONUNBUFFERED = 1;
 
@@ -32,6 +34,7 @@ const setPixel = (position, red, green, blue) => `${position},${red},${green},${
 
 const twinkle = (startPixel, endPixel, color) => {
   const hsl = convert.rgb.hsl(...color);
+  // create the muted color by subtracting from the Lightness
   const twinkleColor = convert.hsl.rgb([hsl[0], hsl[1], hsl[2] - 10]);
   const ledCommands = { twinkleState1: [], twinkleState2: [] };
   for (let i = startPixel; i < endPixel; i += 1) {
@@ -46,6 +49,29 @@ const twinkle = (startPixel, endPixel, color) => {
   return ledCommands;
 };
 
+// let's try duration being in ms
+const pulse = (duration, easing) => {
+  const pulseCommands = [];
+
+  const startBrightness = 80;
+  const endBrightness = 100;
+
+
+  for (let i = 0; i < duration; i += 1) {
+    const currentBrightness = startBrightness
+      + ((endBrightness - startBrightness) * eases.cubicOut(i / duration));
+    pulseCommands.push(setBrightness(currentBrightness));
+  }
+
+  for (let i = duration; i > 0; i -= 1) {
+    const currentBrightness = startBrightness
+      + ((endBrightness - startBrightness) * eases.cubicOut(i / duration));
+    pulseCommands.push(setBrightness(currentBrightness));
+  }
+
+  return pulseCommands;
+};
+
 module.exports = {
-  startLEDs, setColor, setBrightness, setPixel, twinkle,
+  pulse, startLEDs, setColor, setBrightness, setPixel, twinkle,
 };

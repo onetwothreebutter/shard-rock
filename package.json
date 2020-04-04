@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "color-convert": "^2.0.1",
+    "eases": "^1.0.8",
     "express": "^4.17.1",
     "http-server": "^0.12.1",
     "johnny-five": "^1.4.0",

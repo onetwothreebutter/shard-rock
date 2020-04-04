@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const {
-  startLEDs, setColor, setPixel, setBrightness, twinkle,
+  pulse, startLEDs, setColor, setPixel, setBrightness, twinkle,
 } = require('./neopix');
 
 const pythonProcess = startLEDs();
@@ -43,6 +43,18 @@ app.get('/twinkle', (req, res) => {
     console.log('twinkle');
   }, 500);
   res.send('Twinkling...');
+});
+
+app.get('/pulse', (req, res) => {
+  const pulseCommands = pulse(1000, null);
+
+  pulseCommands.forEach((command) => {
+    pythonProcess.stdin.write(command);
+  });
+
+  console.log('pulsing...');
+
+  res.sending('Pulsing...');
 });
 
 app.use(express.static(`${__dirname}/../public`));
