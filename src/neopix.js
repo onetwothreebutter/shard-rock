@@ -60,14 +60,14 @@ const pulse = (duration, easing) => {
   const adjustedDuration = parseInt(duration / 20);
 
   // go up the easing curve
-  for (let i = 0; i < adjustedDuration / 2; i += 1) {
+  for (let i = 0; i <= Math.floor(adjustedDuration / 2); i += 1) {
     const currentBrightness = startBrightness
       + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDuration));
     pulseCommands.push(setBrightness(currentBrightness));
   }
 
   // go down the easing curve
-  for (let i = adjustedDuration / 2; i > 0; i -= 1) {
+  for (let i = Math.floor(adjustedDuration / 2); i >= 0; i -= 1) {
     const currentBrightness = startBrightness
       + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDuration));
     pulseCommands.push(setBrightness(currentBrightness));
