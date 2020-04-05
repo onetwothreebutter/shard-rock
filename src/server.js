@@ -13,6 +13,7 @@ const executePythonCommands = (commands) => {
   let i = 0;
   const interval = setInterval(() => {
     pythonProcess.stdin.write(commands[i]);
+    console.log('each one: ' + commands[i]);
     i += 1;
     if (i === commands.length) {
       clearInterval(interval);
