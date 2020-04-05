@@ -3,10 +3,22 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const {
-  pulse, startLEDs, setColor, setPixel, setBrightness, twinkle,
+  pulse, startLEDs, setColor, setPixel, setBrightness, twinkle, submitCommands,
 } = require('./neopix');
 
 const pythonProcess = startLEDs();
+
+// execute each command every 20 milliseconds (or about 50 frames per second)
+const executePythonCommands = (commands) => {
+  let i = 0;
+  const interval = setInterval(() => {
+    pythonProcess.stdin.write(commands[i]);
+    i += 1;
+    if (i === commands.length) {
+      clearInterval(interval);
+    }
+  }, 20);
+};
 
 app.get('/', (req, res) => {
   if (req.query.setColor) {
@@ -48,9 +60,7 @@ app.get('/twinkle', (req, res) => {
 app.get('/pulse', (req, res) => {
   const pulseCommands = pulse(1000, null);
 
-  pulseCommands.forEach((command) => {
-    pythonProcess.stdin.write(command);
-  });
+  executePythonCommands(pulseCommands);
 
   console.log('pulsing...');
 

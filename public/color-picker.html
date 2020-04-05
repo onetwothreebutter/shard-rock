@@ -57,7 +57,7 @@
     };
 
     const sendToLEDs = (red, green, blue) => {
-      fetch(`http://192.168.86.30:3000/?setColor=true&red=${red}&green=${green}&blue=${blue}`)
+      fetch(`${window.location.origin}/?setColor=true&red=${red}&green=${green}&blue=${blue}`)
         .then((response) => {
           return response.json();
         })
