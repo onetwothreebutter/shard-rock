@@ -61,7 +61,7 @@ app.get('/pulse', (req, res) => {
   const pulseCommands = pulse(1000, null);
 
   executePythonCommands(pulseCommands);
-
+  console.log(pulseCommands);
   console.log('pulsing...');
 
   res.send('Pulsing...');
