@@ -13,7 +13,7 @@ const executePythonCommands = (commands) => {
   let i = 0;
   const interval = setInterval(() => {
     pythonProcess.stdin.write(commands[i]);
-    console.log('each one: ' + commands[i]);
+    console.log(`each one: ${commands[i]}`);
     i += 1;
     if (i === commands.length) {
       clearInterval(interval);
@@ -24,7 +24,12 @@ const executePythonCommands = (commands) => {
 app.get('/', (req, res) => {
   if (req.query.setColor) {
     const { red, green, blue } = req.query;
-    pythonProcess.stdin.write(setColor(red, green, blue));
+    try {
+      pythonProcess.stdin.write(setColor(red, green, blue));
+    } catch (e) {
+      console.log('errrrr', e);
+    }
+
     console.log(`Color set to rgb(${setColor(red, green, blue)})`);
   } else if (req.query.setPixel) {
     const {
