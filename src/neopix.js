@@ -28,7 +28,7 @@ const startLEDs = () => {
 
 const setColor = (red, green, blue) => `${red},${green},${blue}\n`;
 
-const setBrightness = (brightness) => `brightness,${brightness}\n`;
+const setBrightness = (brightness) => `brightness,${parseInt(brightness, 10)}\n`;
 
 const setPixel = (position, red, green, blue) => `${position},${red},${green},${blue}\n`;
 
