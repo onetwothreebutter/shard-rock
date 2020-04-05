@@ -59,7 +59,7 @@ app.get('/twinkle', (req, res) => {
 });
 
 app.get('/pulse', (req, res) => {
-  const pulseCommands = pulse(5000, null);
+  const pulseCommands = pulse(2000, null);
 
   executePythonCommands(pulseCommands);
   console.log(pulseCommands);
