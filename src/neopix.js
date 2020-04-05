@@ -58,18 +58,19 @@ const pulse = (duration, easing) => {
 
   // we only execute every 20ms, so divide duration by 20
   const adjustedDuration = parseInt(duration / 20);
+  const adjustedDurationMidpoint = Math.floor(adjustedDuration / 2);
 
   // go up the easing curve
-  for (let i = 0; i <= Math.floor(adjustedDuration / 2); i += 1) {
+  for (let i = 0; i <= adjustedDurationMidpoint; i += 1) {
     const currentBrightness = startBrightness
-      + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDuration));
+      + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDurationMidpoint));
     pulseCommands.push(setBrightness(currentBrightness));
   }
 
   // go down the easing curve
-  for (let i = Math.floor(adjustedDuration / 2); i >= 0; i -= 1) {
+  for (let i = adjustedDurationMidpoint; i >= 0; i -= 1) {
     const currentBrightness = startBrightness
-      + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDuration));
+      + ((endBrightness - startBrightness) * eases.cubicOut(i / adjustedDurationMidpoint));
     pulseCommands.push(setBrightness(currentBrightness));
   }
 
