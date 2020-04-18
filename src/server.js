@@ -21,9 +21,10 @@ const executePythonCommands = (commands) => {
   }, 20);
 };
 
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
+  console.log('hit the server!');
   if (req.query.setColor) {
-    const { red, green, blue } = req.query;
+    const { red, green, blue } = req.body;
     try {
       pythonProcess.stdin.write(setColor(red, green, blue));
     } catch (e) {
