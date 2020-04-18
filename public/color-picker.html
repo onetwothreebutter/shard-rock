@@ -57,8 +57,13 @@
     // };
 
     const sendToLEDs = (red, green, blue) => {
+      console.log(`sendToLEDS ${red, green, blue}`)
       fetch(`${window.location.origin}/set-color`, {
-        method: 'POST',
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({red, green, blue})
       })
         .then((response) => {
