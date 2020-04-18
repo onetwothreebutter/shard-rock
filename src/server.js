@@ -22,7 +22,7 @@ const executePythonCommands = (commands) => {
 };
 
 app.post('/set-color', (req, res) => {
-  console.log('hit the server!');
+  console.log('hit the server!', JSON.stringify(req));
 
   const { red, green, blue } = req.body;
   try {
