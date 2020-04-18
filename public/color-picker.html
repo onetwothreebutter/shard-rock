@@ -59,7 +59,7 @@
     const sendToLEDs = (red, green, blue) => {
       fetch(`${window.location.origin}/set-color`, {
         method: 'POST',
-        body: {red, green, blue}
+        body: JSON.stringify({red, green, blue})
       })
         .then((response) => {
           return response.json();
