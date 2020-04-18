@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = 3434;
 const {
   pulse, startLEDs, setColor, setPixel, setBrightness, twinkle, submitCommands,
 } = require('./neopix');
