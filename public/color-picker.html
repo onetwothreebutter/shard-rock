@@ -57,7 +57,7 @@
     // };
 
     const sendToLEDs = (red, green, blue) => {
-      fetch(window.location.origin, {
+      fetch(`${window.location.origin}/set-color`, {
         method: 'POST',
         body: {red, green, blue}
       })

@@ -21,29 +21,39 @@ const executePythonCommands = (commands) => {
   }, 20);
 };
 
-app.post('/', (req, res) => {
+app.post('/set-color', (req, res) => {
   console.log('hit the server!');
-  if (req.query.setColor) {
-    const { red, green, blue } = req.body;
-    try {
-      pythonProcess.stdin.write(setColor(red, green, blue));
-    } catch (e) {
-      console.log('errrrr', e);
-    }
 
-    console.log(`Color set to rgb(${setColor(red, green, blue)})`);
-  } else if (req.query.setPixel) {
-    const {
-      position, red, green, blue,
-    } = req.query;
-    pythonProcess.stdin.write(setPixel(position, red, green, blue));
-  } else if (req.query.brightness) {
-    const { brightness } = req.query.brightness;
-    pythonProcess.stdin.write(setBrightness(brightness));
-    console.log(`Brightness set to ${brightness}%`);
-  } else {
-    res.send('Hello word');
+  const { red, green, blue } = req.body;
+  try {
+    pythonProcess.stdin.write(setColor(red, green, blue));
+  } catch (e) {
+    console.log('errrrr', e);
   }
+
+  console.log(`Color set to rgb(${red, green, blue})`);
+  // if (req.query.setColor) {
+  //   const { red, green, blue } = req.body;
+  //   try {
+  //     pythonProcess.stdin.write(setColor(red, green, blue));
+  //   } catch (e) {
+  //     console.log('errrrr', e);
+  //   }
+  //
+  //   console.log(`Color set to rgb(${setColor(red, green, blue)})`);
+  // } else if (req.query.setPixel) {
+  //   const {
+  //     position, red, green, blue,
+  //   } = req.query;
+  //   pythonProcess.stdin.write(setPixel(position, red, green, blue));
+  // } else if (req.query.brightness) {
+  //   const { brightness } = req.query.brightness;
+  //   pythonProcess.stdin.write(setBrightness(brightness));
+  //   console.log(`Brightness set to ${brightness}%`);
+  // } else {
+  //   res.send('Hello word');
+  // }
+  res.send(`Color set to: ${red, green, blue}`);
 });
 
 app.get('/twinkle', (req, res) => {
