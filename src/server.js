@@ -1,6 +1,7 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
 const port = 3434;
 const {
   pulse, startLEDs, setColor, setPixel, setBrightness, twinkle, submitCommands,
