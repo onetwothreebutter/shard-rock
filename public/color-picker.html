@@ -57,7 +57,7 @@
     // };
 
     const sendToLEDs = (red, green, blue) => {
-      console.log(`sendToLEDS ${red, green, blue}`)
+      console.log(`sendToLEDS ${ {red, green, blue}} `)
       fetch(`${window.location.origin}/set-color`, {
         method: 'post',
         headers: {
