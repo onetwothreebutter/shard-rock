@@ -4,7 +4,7 @@
   "description": "Make a responsive rock with glowing glass chunks",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "color-convert": "^2.0.1",
     "eases": "^1.0.8",
     "express": "^4.17.1",
